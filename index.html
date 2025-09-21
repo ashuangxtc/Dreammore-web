@@ -33,24 +33,30 @@
 
   .wrap{max-width:720px; margin:0 auto; padding: max(16px, env(safe-area-inset-top)) 16px 32px;}
 
-  /* 顶部横幅：完整显示 top.png 并居中，同时保留圆角 */
+  /* 顶部横幅：图片在容器中水平垂直居中，保持比例，圆角生效 */
   .top-banner{
     width:100%;
     border-radius:20px;
-    overflow:hidden;             /* 确保圆角生效 */
+    overflow:hidden;             /* 让圆角真正裁剪内容 */
     box-shadow:var(--shadow);
     background:#dbeafe;
     margin-bottom:16px;
-    display:flex;                /* 居中用 flex */
-    justify-content:center;      /* 水平居中 */
-    align-items:center;          /* 垂直居中 */
+    display:flex;
+    justify-content:center;      /* 水平居中图片 */
+    align-items:center;          /* 垂直居中图片 */
+    min-height:120px;            /* 给个最小高度，避免首屏抖动 */
   }
   .top-banner img{
-    max-width:100%;              /* 不拉伸 */
+    width:auto;                  /* 关键：不要拉满宽度 */
+    max-width:100%;              /* 但也别超出容器 */
+    max-height:160px;            /* 设定视觉高度（手机） */
     height:auto;
     display:block;
-    object-fit:contain;
-    object-position:center center;
+    object-fit:contain;          /* 完整显示整张图 */
+  }
+  /* 平板/桌面稍微放大一点横幅高度 */
+  @media (min-width: 768px){
+    .top-banner img{ max-height:200px; }
   }
 
   .title{
@@ -73,25 +79,23 @@
   .loading-box{ display:flex; justify-content:center; align-items:center; margin:14px 0 8px; }
   .loading-box img{ width:120px; height:auto; image-rendering:-webkit-optimize-contrast; }
 
-  /* 按钮组：始终保持一行 */
-  .btns {
-    display: flex;
-    gap: 12px;
-    margin: 18px 0 6px;
-    flex-wrap: nowrap;       /* 不换行 */
+  /* 按钮组：一行显示，按钮随内容自适应宽度，文字不换行 */
+  .btns{
+    display:flex;
+    justify-content:center;   /* 整体居中 */
+    gap:12px;
+    margin:18px 0 6px;
+    flex-wrap:nowrap;         /* 禁止换行 */
   }
-  .btn {
-    flex: 1;                 /* 平均分配宽度 */
-    appearance: none;
-    border: 0;
-    cursor: pointer;
-    padding: 12px 0;         /* 按钮高度 */
-    border-radius: 14px;
-    font-weight: 700;
-    font-size: 15px;
-    transition: transform .08s ease, box-shadow .2s ease, background .2s ease;
-    box-shadow: 0 6px 18px rgba(36,102,244,.18);
-    text-align: center;      /* 文本居中 */
+  .btn{
+    appearance:none; border:0; cursor:pointer;
+    padding:12px 16px;
+    border-radius:14px;
+    font-weight:700; font-size:15px;
+    transition:transform .08s ease, box-shadow .2s ease, background .2s ease;
+    box-shadow:0 6px 18px rgba(36,102,244,.18);
+    text-align:center;
+    white-space:nowrap;       /* 关键：不换行 */
   }
   .btn:active{ transform:translateY(1px); }
   .btn.primary{ background:var(--primary); color:#fff; }
@@ -149,7 +153,7 @@
       <code id="plain-link" class="mono">https://luckcode-deploy-ashuang.replit.app/</code>
     </section>
 
-    <div class="footer">© Dreammore Burger · 长沙汉堡节</div>
+    <div class="footer">© Dreammore Burger ·HOCH长沙汉堡节</div>
     <div id="toast" class="toast">已复制到剪贴板</div>
     <div class="safe"></div>
   </div>
