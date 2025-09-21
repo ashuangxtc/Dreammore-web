@@ -33,30 +33,19 @@
 
   .wrap{max-width:720px; margin:0 auto; padding: max(16px, env(safe-area-inset-top)) 16px 32px;}
 
-  /* 顶部横幅：图片在容器中水平垂直居中，保持比例，圆角生效 */
+  /* 顶部横幅：容器高度=图片高度；圆角紧贴图片；横向自适应 */
   .top-banner{
-    width:100%;
+    margin:0 auto 16px;
     border-radius:20px;
-    overflow:hidden;             /* 让圆角真正裁剪内容 */
+    overflow:hidden;           /* 让圆角裁剪图片 */
     box-shadow:var(--shadow);
-    background:#dbeafe;
-    margin-bottom:16px;
-    display:flex;
-    justify-content:center;      /* 水平居中图片 */
-    align-items:center;          /* 垂直居中图片 */
-    min-height:120px;            /* 给个最小高度，避免首屏抖动 */
+    display:block;
+    max-width:100%;
   }
   .top-banner img{
-    width:auto;                  /* 关键：不要拉满宽度 */
-    max-width:100%;              /* 但也别超出容器 */
-    max-height:160px;            /* 设定视觉高度（手机） */
-    height:auto;
     display:block;
-    object-fit:contain;          /* 完整显示整张图 */
-  }
-  /* 平板/桌面稍微放大一点横幅高度 */
-  @media (min-width: 768px){
-    .top-banner img{ max-height:200px; }
+    width:100%;                /* 宽随容器，等比缩放 */
+    height:auto;               /* 高度随图片本身 */
   }
 
   .title{
@@ -79,23 +68,26 @@
   .loading-box{ display:flex; justify-content:center; align-items:center; margin:14px 0 8px; }
   .loading-box img{ width:120px; height:auto; image-rendering:-webkit-optimize-contrast; }
 
-  /* 按钮组：一行显示，按钮随内容自适应宽度，文字不换行 */
+  /* 按钮组：使用 grid 保证三等分一行内不溢出 */
   .btns{
-    display:flex;
-    justify-content:center;   /* 整体居中 */
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
     gap:12px;
     margin:18px 0 6px;
-    flex-wrap:nowrap;         /* 禁止换行 */
   }
   .btn{
     appearance:none; border:0; cursor:pointer;
-    padding:12px 16px;
+    padding:12px 10px;         /* 稍收窄，避免拥挤 */
     border-radius:14px;
     font-weight:700; font-size:15px;
     transition:transform .08s ease, box-shadow .2s ease, background .2s ease;
     box-shadow:0 6px 18px rgba(36,102,244,.18);
     text-align:center;
-    white-space:nowrap;       /* 关键：不换行 */
+    white-space:nowrap;        /* 文案不换行 */
+    overflow:hidden; text-overflow:ellipsis; /* 超长做省略，避免溢出卡片 */
+  }
+  @media (max-width:360px){
+    .btn{ font-size:14px; padding:11px 8px; } /* 超小屏再收一点 */
   }
   .btn:active{ transform:translateY(1px); }
   .btn.primary{ background:var(--primary); color:#fff; }
@@ -144,7 +136,7 @@
       </p>
 
       <div class="btns">
-        <button id="btn-mtt" class="btn ghost">尝试其他方式打开</button>
+        <button id="btn-mtt" class="btn ghost">点此尝试再次打开</button>
         <button id="btn-default" class="btn primary">用默认浏览器打开</button>
         <button id="btn-copy" class="btn copy">复制链接</button>
       </div>
@@ -153,7 +145,7 @@
       <code id="plain-link" class="mono">https://luckcode-deploy-ashuang.replit.app/</code>
     </section>
 
-    <div class="footer">© Dreammore Burger ·HOCH长沙汉堡节</div>
+    <div class="footer">© Dreammore Burger · HOCH长沙汉堡节</div>
     <div id="toast" class="toast">已复制到剪贴板</div>
     <div class="safe"></div>
   </div>
