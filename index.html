@@ -124,7 +124,7 @@
       </p>
 
       <div class="btns">
-        <button id="btn-mtt" class="btn ghost">在 QQ 浏览器中打开</button>
+        <button id="btn-mtt" class="btn ghost"尝试其他方式打开</button>
         <button id="btn-default" class="btn primary">用默认浏览器打开</button>
         <button id="btn-copy" class="btn copy">复制链接</button>
       </div>
@@ -182,3 +182,4 @@
       const node = document.getElementById('plain-link');
       range.selectNodeContents(node); sel.removeAllRanges(); sel.addRange(range);
       try{ document.execCommand('copy'); toast(); }catch(e){ toast('复制失败
+
