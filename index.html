@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>请在浏览器中打开 · 查看活动入口</title>
-<meta name="color-scheme" content="light dark">
+<title>请在浏览器中打开 · Dreammore</title>
+<meta name="color-scheme" content="light dark" />
 <style>
   :root{
     --bg:#fff9ef;
@@ -27,79 +27,57 @@
   html,body{height:100%}
   body{
     margin:0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC","Hiragino Sans GB","Microsoft YaHei", sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    letter-spacing:.2px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg); color:var(--text); letter-spacing:.2px;
   }
-  .wrap{
-    max-width:680px;
-    margin:0 auto;
-    padding: max(20px, env(safe-area-inset-top)) 18px 32px;
+
+  .wrap{max-width:720px; margin:0 auto; padding: max(16px, env(safe-area-inset-top)) 16px 32px;}
+
+  /* 顶部横幅：使用你的 top.png */
+  .top-banner{
+    width:100%; aspect-ratio: 750/234; /* 保持比例，移动端适配 */
+    border-radius:20px; overflow:hidden; box-shadow:var(--shadow); background:#dbeafe;
   }
-  /* 顶部横幅 */
-  .hero{
-    position:relative;
-    height:160px;
-    border-radius:24px;
-    background:
-      radial-gradient(120% 100% at 0% 0%, #6ad0ff 0%, rgba(106,208,255,0) 60%),
-      radial-gradient(120% 120% at 100% 0%, #7b7dff 0%, rgba(123,125,255,0) 60%),
-      linear-gradient(135deg, #1b63ff 0%, #11b3ff 100%);
-    box-shadow: var(--shadow);
-    overflow:hidden;
-  }
-  .hero .hand{
-    position:absolute; right:16px; bottom:16px; width:96px; opacity:.9;
-    filter: drop-shadow(0 6px 16px rgba(0,0,0,.15));
-  }
+  .top-banner img{ width:100%; height:100%; object-fit:cover; display:block; }
+
   .title{
-    margin:18px 6px 10px;
-    font-weight:800;
-    font-size:22px;
-    line-height:1.25;
-    letter-spacing:.3px;
-    display:flex; align-items:center; gap:8px;
+    margin:18px 6px 10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+    font-weight:800; font-size:22px; line-height:1.25; letter-spacing:.3px;
   }
   .badge{
-    display:inline-block;
-    padding:4px 10px;
-    border-radius:999px;
-    background:var(--primary-weak);
-    color:var(--primary);
-    font-weight:700;
-    font-size:12px;
+    display:inline-block; padding:4px 10px; border-radius:999px;
+    background:var(--primary-weak); color:var(--primary); font-weight:700; font-size:12px;
   }
+
   .card{
-    background:var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding:18px 16px;
-    margin:14px 0 0;
+    background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
+    padding:18px 16px; margin-top:14px;
   }
-  .desc{
-    font-size:15.5px; line-height:1.8; color:var(--text);
-  }
-  .desc b{color:var(--accent)}
-  .btns{
-    display:flex; gap:12px; margin:18px 0 6px; flex-wrap:wrap;
-  }
+  .desc{ font-size:15.5px; line-height:1.8; }
+  .desc b{ color:var(--accent); }
+
+  /* 中间 loading 动画（使用你的 loading.gif） */
+  .loading-box{ display:flex; justify-content:center; align-items:center; margin:14px 0 8px; }
+  .loading-box img{ width:120px; height:auto; image-rendering:-webkit-optimize-contrast; }
+
+  .btns{ display:flex; gap:12px; margin:18px 0 6px; flex-wrap:wrap; }
   .btn{
-    appearance:none; border:0; cursor:pointer;
-    padding:12px 16px; border-radius:14px; font-weight:700; font-size:15px;
-    transition: transform .08s ease, box-shadow .2s ease, background .2s ease;
-    box-shadow: 0 6px 18px rgba(36,102,244,.18);
+    appearance:none; border:0; cursor:pointer; padding:12px 16px; border-radius:14px;
+    font-weight:700; font-size:15px; transition:transform .08s ease, box-shadow .2s ease, background .2s ease;
+    box-shadow:0 6px 18px rgba(36,102,244,.18);
   }
-  .btn:active{ transform: translateY(1px); }
+  .btn:active{ transform:translateY(1px); }
   .btn.primary{ background:var(--primary); color:#fff; }
-  .btn.ghost{ background:#fff0; color:var(--primary); border:1px solid var(--primary); }
+  .btn.ghost{ background:transparent; color:var(--primary); border:1px solid var(--primary); }
   .btn.copy{ background:var(--primary-weak); color:var(--primary); box-shadow:none; }
+
   .small{ font-size:13px; color:var(--muted); }
   .mono{
     display:block; margin-top:8px; padding:12px 14px; word-break:break-all;
-    background:rgba(0,0,0,.04); border-radius:12px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size:13.5px;
+    background:rgba(0,0,0,.04); border-radius:12px;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:13.5px;
   }
+
   .footer{ margin-top:26px; text-align:center; color:var(--muted); font-size:12.5px; }
   .toast{
     position:fixed; left:50%; bottom:24px; transform:translateX(-50%);
@@ -107,27 +85,32 @@
     font-size:13px; opacity:0; pointer-events:none; transition:opacity .2s ease, transform .2s ease;
   }
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(-6px); }
-  /* 顶部返回“X”留白适配 */
   .safe{ height:8px; }
 </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="hero">
-      <!-- 你可以换成自己的指引图 -->
-      <img class="hand" alt="点右上角打开" src="https://img.alicdn.com/imgextra/i3/2200638895580/O1CN01awiCFw1r5gfyRJf65_!!2200638895580.png">
-    </div>
+    <!-- 顶部横幅：根目录 top.png -->
+    <figure class="top-banner">
+      <img src="./top.png" alt="请在浏览器中打开 - 指引图" loading="eager" fetchpriority="high">
+    </figure>
 
     <div class="title">
-      请在浏览器中打开
-      <span class="badge">推荐</span>
+      请在浏览器中打开 <span class="badge">推荐</span>
     </div>
 
-    <div class="card">
-      <div class="desc">
+    <section class="card" aria-labelledby="guide-title">
+      <h2 id="guide-title" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;">打开方式指引</h2>
+
+      <!-- 中间 loading：根目录 loading.gif -->
+      <div class="loading-box" aria-hidden="true">
+        <img src="./loading.gif" alt="加载中">
+      </div>
+
+      <p class="desc">
         因 <b>微信/QQ 内置浏览器</b> 对本活动页支持有限，<br>
         请点击右上角 “<b>···</b>” → 选择 <b>在浏览器中打开</b>。
-      </div>
+      </p>
 
       <div class="btns">
         <button id="btn-mtt" class="btn ghost">在 QQ 浏览器中打开</button>
@@ -137,7 +120,7 @@
 
       <div class="small">或将下方链接复制到浏览器打开：</div>
       <code id="plain-link" class="mono">https://luckcode-deploy-ashuang.replit.app/</code>
-    </div>
+    </section>
 
     <div class="footer">© Dreammore Burger · 长沙汉堡节</div>
     <div id="toast" class="toast">已复制到剪贴板</div>
@@ -145,23 +128,22 @@
   </div>
 
 <script>
-  // 1) 目标地址（改这里即可）
+  // 1) 目标地址（需要可自行修改）
   const target = "https://luckcode-deploy-ashuang.replit.app/";
 
-  // 2) 环境判断：如果不是微信/QQ，直接跳转
+  // 2) 非微信/QQ 浏览器直接跳转；微信/QQ 内核展示引导 + 显示链接
   (function autoJump(){
     const ua = navigator.userAgent.toLowerCase();
     const isQQ = ua.includes('qq/');
     const isWX = ua.includes('micromessenger');
     if(!isQQ && !isWX){
       location.replace(target);
-    } else {
-      // 在微信/QQ内，展示引导 & 链接
+    }else{
       document.getElementById('plain-link').textContent = target;
     }
   })();
 
-  // 3) 交互：按钮逻辑
+  // 3) 交互：按钮逻辑 + 复制提示
   const toast = (txt)=>{
     const el = document.getElementById('toast');
     el.textContent = txt || '已复制到剪贴板';
@@ -171,11 +153,11 @@
 
   document.getElementById('btn-mtt').addEventListener('click', (e)=>{
     e.preventDefault();
-    // 优先尝试 QQ 浏览器 scheme（部分安卓机有效）
+    // 部分安卓机有效的 QQ 浏览器 scheme
     const scheme = 'mttbrowser://url=' + encodeURIComponent(target);
     const a = document.createElement('a');
     a.style.display='none'; a.href = scheme; document.body.appendChild(a); a.click();
-    // 兜底：2.2s 后直接打开目标地址（给系统一点时间唤起外部浏览器）
+    // 兜底：2.2s 后直接打开目标地址
     setTimeout(()=>{ location.href = target; }, 2200);
   });
 
