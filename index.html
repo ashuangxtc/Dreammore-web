@@ -33,23 +33,26 @@
 
   .wrap{max-width:720px; margin:0 auto; padding: max(16px, env(safe-area-inset-top)) 16px 32px;}
 
-<style>
-  .top-banner {
-    width: 100%;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    background: #dbeafe;
-    margin-bottom: 16px;
-    display: flex;              /* 新增：用 flex 布局 */
-    justify-content: center;    /* 水平居中 */
-    align-items: center;        /* 垂直居中 */
+  /* 顶部横幅：完整显示 top.png 并居中，同时保留圆角 */
+  .top-banner{
+    width:100%;
+    border-radius:20px;
+    overflow:hidden;             /* 确保圆角生效 */
+    box-shadow:var(--shadow);
+    background:#dbeafe;
+    margin-bottom:16px;
+    display:flex;                /* 居中用 flex */
+    justify-content:center;      /* 水平居中 */
+    align-items:center;          /* 垂直居中 */
   }
-  .top-banner img {
-    max-width: 100%;            /* 保持原始比例，不被拉伸 */
-    height: auto;
-    display: block;
+  .top-banner img{
+    max-width:100%;              /* 不拉伸 */
+    height:auto;
+    display:block;
+    object-fit:contain;
+    object-position:center center;
   }
+
   .title{
     margin:18px 6px 10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;
     font-weight:800; font-size:22px; line-height:1.25; letter-spacing:.3px;
@@ -70,11 +73,25 @@
   .loading-box{ display:flex; justify-content:center; align-items:center; margin:14px 0 8px; }
   .loading-box img{ width:120px; height:auto; image-rendering:-webkit-optimize-contrast; }
 
-  .btns{ display:flex; gap:12px; margin:18px 0 6px; flex-wrap:wrap; }
-  .btn{
-    appearance:none; border:0; cursor:pointer; padding:12px 16px; border-radius:14px;
-    font-weight:700; font-size:15px; transition:transform .08s ease, box-shadow .2s ease, background .2s ease;
-    box-shadow:0 6px 18px rgba(36,102,244,.18);
+  /* 按钮组：始终保持一行 */
+  .btns {
+    display: flex;
+    gap: 12px;
+    margin: 18px 0 6px;
+    flex-wrap: nowrap;       /* 不换行 */
+  }
+  .btn {
+    flex: 1;                 /* 平均分配宽度 */
+    appearance: none;
+    border: 0;
+    cursor: pointer;
+    padding: 12px 0;         /* 按钮高度 */
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 15px;
+    transition: transform .08s ease, box-shadow .2s ease, background .2s ease;
+    box-shadow: 0 6px 18px rgba(36,102,244,.18);
+    text-align: center;      /* 文本居中 */
   }
   .btn:active{ transform:translateY(1px); }
   .btn.primary{ background:var(--primary); color:#fff; }
@@ -102,7 +119,7 @@
   <div class="wrap">
     <!-- 顶部横幅：根目录 top.png -->
     <figure class="top-banner">
-    <img src="./top.png" alt="请在浏览器中打开 - 指引图" loading="eager" fetchpriority="high">
+      <img src="./top.png" alt="请在浏览器中打开 - 指引图" loading="eager" fetchpriority="high">
     </figure>
 
     <div class="title">
@@ -180,7 +197,9 @@
       const range = document.createRange();
       const node = document.getElementById('plain-link');
       range.selectNodeContents(node); sel.removeAllRanges(); sel.addRange(range);
-      try{ document.execCommand('copy'); toast(); }catch(e){ toast('复制失败
-
-
-
+      try{ document.execCommand('copy'); toast(); }catch(e){ toast('复制失败'); }
+    }
+  });
+</script>
+</body>
+</html>
