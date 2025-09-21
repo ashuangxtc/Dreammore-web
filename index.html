@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>请在浏览器中打开 · Dreammore</title>
+<title>请在浏览器中打开 · 参与活动</title>
 <meta name="color-scheme" content="light dark" />
 <style>
   :root{
@@ -33,12 +33,23 @@
 
   .wrap{max-width:720px; margin:0 auto; padding: max(16px, env(safe-area-inset-top)) 16px 32px;}
 
-  /* 顶部横幅：使用你的 top.png */
+  /* 顶部横幅：完整显示 top.png 并居中 */
   .top-banner{
-    width:100%; aspect-ratio: 750/234; /* 保持比例，移动端适配 */
-    border-radius:20px; overflow:hidden; box-shadow:var(--shadow); background:#dbeafe;
+    width:100%;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+    background:#dbeafe;
+    margin-bottom:16px;
   }
-  .top-banner img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .top-banner img{
+    display:block;
+    width:100%;
+    height:auto;
+    margin:0 auto;
+    object-fit:contain;     /* 完整显示 */
+    object-position:center; /* 水平居中 */
+  }
 
   .title{
     margin:18px 6px 10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;
@@ -56,7 +67,7 @@
   .desc{ font-size:15.5px; line-height:1.8; }
   .desc b{ color:var(--accent); }
 
-  /* 中间 loading 动画（使用你的 loading.gif） */
+  /* 中间 loading 动画（loading.gif） */
   .loading-box{ display:flex; justify-content:center; align-items:center; margin:14px 0 8px; }
   .loading-box img{ width:120px; height:auto; image-rendering:-webkit-optimize-contrast; }
 
@@ -128,22 +139,19 @@
   </div>
 
 <script>
-  // 1) 目标地址（需要可自行修改）
   const target = "https://luckcode-deploy-ashuang.replit.app/";
 
-  // 2) 非微信/QQ 浏览器直接跳转；微信/QQ 内核展示引导 + 显示链接
   (function autoJump(){
     const ua = navigator.userAgent.toLowerCase();
     const isQQ = ua.includes('qq/');
     const isWX = ua.includes('micromessenger');
     if(!isQQ && !isWX){
       location.replace(target);
-    }else{
+    } else {
       document.getElementById('plain-link').textContent = target;
     }
   })();
 
-  // 3) 交互：按钮逻辑 + 复制提示
   const toast = (txt)=>{
     const el = document.getElementById('toast');
     el.textContent = txt || '已复制到剪贴板';
@@ -153,11 +161,9 @@
 
   document.getElementById('btn-mtt').addEventListener('click', (e)=>{
     e.preventDefault();
-    // 部分安卓机有效的 QQ 浏览器 scheme
     const scheme = 'mttbrowser://url=' + encodeURIComponent(target);
     const a = document.createElement('a');
     a.style.display='none'; a.href = scheme; document.body.appendChild(a); a.click();
-    // 兜底：2.2s 后直接打开目标地址
     setTimeout(()=>{ location.href = target; }, 2200);
   });
 
@@ -171,15 +177,8 @@
       await navigator.clipboard.writeText(target);
       toast('链接已复制，去外部浏览器粘贴打开');
     }catch(err){
-      // 兼容旧机型
       const sel = window.getSelection();
       const range = document.createRange();
       const node = document.getElementById('plain-link');
       range.selectNodeContents(node); sel.removeAllRanges(); sel.addRange(range);
-      try{ document.execCommand('copy'); toast(); }catch(e){ toast('复制失败，请长按手动复制'); }
-      sel.removeAllRanges();
-    }
-  });
-</script>
-</body>
-</html>
+      try{ document.execCommand('copy'); toast(); }catch(e){ toast('复制失败
