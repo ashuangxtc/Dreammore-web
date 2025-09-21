@@ -33,24 +33,23 @@
 
   .wrap{max-width:720px; margin:0 auto; padding: max(16px, env(safe-area-inset-top)) 16px 32px;}
 
-  /* 顶部横幅：完整显示 top.png 并居中 */
-  .top-banner{
-    width:100%;
-    border-radius:20px;
-    overflow:hidden;
-    box-shadow:var(--shadow);
-    background:#dbeafe;
-    margin-bottom:16px;
+<style>
+  .top-banner {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    background: #dbeafe;
+    margin-bottom: 16px;
+    display: flex;              /* 新增：用 flex 布局 */
+    justify-content: center;    /* 水平居中 */
+    align-items: center;        /* 垂直居中 */
   }
-  .top-banner img{
-    display:block;
-    width:100%;
-    height:auto;
-    margin:0 auto;
-    object-fit:contain;     /* 完整显示 */
-    object-position:center; /* 水平居中 */
+  .top-banner img {
+    max-width: 100%;            /* 保持原始比例，不被拉伸 */
+    height: auto;
+    display: block;
   }
-
   .title{
     margin:18px 6px 10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;
     font-weight:800; font-size:22px; line-height:1.25; letter-spacing:.3px;
@@ -103,7 +102,7 @@
   <div class="wrap">
     <!-- 顶部横幅：根目录 top.png -->
     <figure class="top-banner">
-      <img src="./top.png" alt="请在浏览器中打开 - 指引图" loading="eager" fetchpriority="high">
+    <img src="./top.png" alt="请在浏览器中打开 - 指引图" loading="eager" fetchpriority="high">
     </figure>
 
     <div class="title">
@@ -182,5 +181,6 @@
       const node = document.getElementById('plain-link');
       range.selectNodeContents(node); sel.removeAllRanges(); sel.addRange(range);
       try{ document.execCommand('copy'); toast(); }catch(e){ toast('复制失败
+
 
 
